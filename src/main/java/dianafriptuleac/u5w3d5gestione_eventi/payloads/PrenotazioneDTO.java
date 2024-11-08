@@ -14,9 +14,6 @@ public record PrenotazioneDTO(
 
         LocalDate dataPrenotazione,
 
-        @NotNull(message = "Inserire un id utente!")
-        Long utente_id,
-
         @NotNull(message = "Inserire un id dell'evento!")
         Long evento_id
 

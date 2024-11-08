@@ -2,7 +2,7 @@ package dianafriptuleac.u5w3d5gestione_eventi.controllers;
 
 import dianafriptuleac.u5w3d5gestione_eventi.entities.Utente;
 import dianafriptuleac.u5w3d5gestione_eventi.exceptions.BadRequestException;
-import dianafriptuleac.u5w3d5gestione_eventi.payloads.UtenteDTO;
+import dianafriptuleac.u5w3d5gestione_eventi.payloads.RegistrazioneDTO;
 import dianafriptuleac.u5w3d5gestione_eventi.payloads.UtenteLoginDTO;
 import dianafriptuleac.u5w3d5gestione_eventi.payloads.UtenteLoginResponseDTO;
 import dianafriptuleac.u5w3d5gestione_eventi.services.AuthService;
@@ -26,7 +26,7 @@ public class AuthController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public Utente register(@RequestBody @Validated UtenteDTO body, BindingResult validatioResult) {
+    public Utente register(@RequestBody @Validated RegistrazioneDTO body, BindingResult validatioResult) {
 
         if (validatioResult.hasErrors()) {
             String msg = validatioResult.getAllErrors().stream().map(objectError -> objectError.getDefaultMessage())

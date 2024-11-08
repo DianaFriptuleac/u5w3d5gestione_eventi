@@ -28,7 +28,6 @@ public class Prenotazione {
 
     @ManyToOne
     @JoinColumn(name = "evento_id", nullable = false)
-    @JsonBackReference
     private Evento evento;
 
 

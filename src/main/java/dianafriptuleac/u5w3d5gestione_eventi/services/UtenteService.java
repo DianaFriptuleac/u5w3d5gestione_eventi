@@ -3,9 +3,11 @@ package dianafriptuleac.u5w3d5gestione_eventi.services;
 import dianafriptuleac.u5w3d5gestione_eventi.entities.Utente;
 import dianafriptuleac.u5w3d5gestione_eventi.exceptions.BadRequestException;
 import dianafriptuleac.u5w3d5gestione_eventi.exceptions.NotFoundException;
+import dianafriptuleac.u5w3d5gestione_eventi.payloads.RegistrazioneDTO;
 import dianafriptuleac.u5w3d5gestione_eventi.payloads.UtenteDTO;
 import dianafriptuleac.u5w3d5gestione_eventi.repositories.PrenotazioneRepository;
 import dianafriptuleac.u5w3d5gestione_eventi.repositories.UtenteRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +28,7 @@ public class UtenteService {
     @Autowired
     private PasswordEncoder bcrypt;
 
-    public Utente save(UtenteDTO body) {
+    public Utente save(RegistrazioneDTO body) {
         this.utenteRepository.findByEmail(body.email()).ifPresent(utente -> {
             throw new BadRequestException("Email " + body.email() + " già in uso!");
         });
@@ -39,8 +41,12 @@ public class UtenteService {
                 new NotFoundException("L'utente con email " + email + " non è stato trovato"));
     }
 
+    @Transactional
     public Utente findById(Long utenteId) {
-        return this.utenteRepository.findById(utenteId).orElseThrow(() -> new NotFoundException(utenteId));
+        Utente utente = this.utenteRepository.findById(utenteId).orElseThrow(() -> new NotFoundException(utenteId));
+        utente.getEventiOrganizzatore().size();
+        utente.getPrenotazioniUtente().size();
+        return utente;
     }
 
     public Utente findByIdAndUpdate(Long utenteId, UtenteDTO body) {

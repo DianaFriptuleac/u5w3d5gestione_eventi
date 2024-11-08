@@ -3,7 +3,6 @@ package dianafriptuleac.u5w3d5gestione_eventi.controllers;
 import dianafriptuleac.u5w3d5gestione_eventi.entities.Utente;
 import dianafriptuleac.u5w3d5gestione_eventi.payloads.UtenteDTO;
 import dianafriptuleac.u5w3d5gestione_eventi.services.UtenteService;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -33,8 +32,8 @@ public class UtenteController {
 
     //me
     @GetMapping("/me")
-    @Transactional
     public Utente getMyProfile(@AuthenticationPrincipal Utente currentAuthenticateUtente) {
+        Utente myDettagli = utenteService.findById(currentAuthenticateUtente.getId());
         return currentAuthenticateUtente;
     }
 
