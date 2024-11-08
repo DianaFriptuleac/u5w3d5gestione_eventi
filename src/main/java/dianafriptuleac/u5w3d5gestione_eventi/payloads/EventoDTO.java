@@ -1,5 +1,6 @@
 package dianafriptuleac.u5w3d5gestione_eventi.payloads;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
@@ -21,8 +22,7 @@ public record EventoDTO(
         @Size(min = 2, max = 50, message = "Fornire una luogo dell'evento compresa tra 2 e 50 caratteri!")
         String luogo,
 
-        @NotEmpty(message = "Inserire i posti disponibili per l'evento!")
-        @Size(min = 2, message = "Fornire almeno due posti per evento")
+        @Min(value = 2, message = "Fornire almeno due posti per evento")
         int postiDisponibili
 ) {
 }

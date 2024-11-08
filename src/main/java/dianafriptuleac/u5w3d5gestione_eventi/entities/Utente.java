@@ -1,5 +1,6 @@
 package dianafriptuleac.u5w3d5gestione_eventi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import dianafriptuleac.u5w3d5gestione_eventi.enums.Role;
 import jakarta.persistence.*;
@@ -33,9 +34,11 @@ public class Utente implements UserDetails {
     private Role role;
 
     @OneToMany(mappedBy = "organizzatore", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Evento> eventiOrganizzatore;
 
     @OneToMany(mappedBy = "utente", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Prenotazione> prenotazioniUtente;
 
     public Utente(String nome, String cognome, String email, String password) {
@@ -46,6 +49,7 @@ public class Utente implements UserDetails {
         this.role = Role.UTENTE;
 
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
