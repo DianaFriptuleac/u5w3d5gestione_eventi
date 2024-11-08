@@ -2,6 +2,7 @@ package dianafriptuleac.u5w3d5gestione_eventi.payloads;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ public record EventoDTO(
         @Size(min = 5, max = 100, message = "Fornire una descrizione  compresa tra 5 e 100 caratteri!")
         String descrizione,
 
-        @NotEmpty(message = "Fornire una data evento")
+        @NotNull(message = "Fornire una data evento")
         LocalDate dataEvento,
 
         @NotEmpty(message = "Il luodo dell'evento è un campo obbligatorio!")
