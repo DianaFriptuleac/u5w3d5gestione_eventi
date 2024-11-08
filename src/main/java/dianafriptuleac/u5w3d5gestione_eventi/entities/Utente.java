@@ -1,5 +1,6 @@
 package dianafriptuleac.u5w3d5gestione_eventi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import dianafriptuleac.u5w3d5gestione_eventi.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -17,6 +18,8 @@ import java.util.List;
 @Getter
 @ToString
 @NoArgsConstructor
+@JsonIgnoreProperties({"password", "role", "accountNonLocked",
+        "credentialsNonExpired", "accountNonExpired", "authorities", "enabled"})
 public class Utente implements UserDetails {
     @Id
     @GeneratedValue
