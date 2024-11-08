@@ -36,4 +36,24 @@ public class EventoController {
 
         return this.eventoService.creaEvento(body, organizzatore);
     }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ORGANIZZATORE')")
+    public Evento updateEv(@PathVariable Long id, @RequestBody @Validated EventoDTO body,
+                           BindingResult validationResult, @AuthenticationPrincipal Utente organizzatore) {
+        if (validationResult.hasErrors()) {
+            String message = validationResult.getAllErrors().stream()
+                    .map(objectError -> objectError.getDefaultMessage())
+                    .collect(Collectors.joining(". "));
+            throw new BadRequestException("Ci sono stati errori nel payload! " + message);
+        }
+        return this.eventoService.updateEvento(id, body, organizzatore);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ORGANIZZATORE')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteEv(@PathVariable Long id, @AuthenticationPrincipal Utente organizzatore) {
+        this.eventoService.deleteEvento(id, organizzatore);
+    }
 }
