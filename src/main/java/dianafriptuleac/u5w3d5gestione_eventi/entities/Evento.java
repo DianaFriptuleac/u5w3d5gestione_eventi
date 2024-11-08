@@ -1,5 +1,6 @@
 package dianafriptuleac.u5w3d5gestione_eventi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,9 +26,11 @@ public class Evento {
     private int postiDisponibili;
     @ManyToOne
     @JoinColumn(name = "organizzatore_id", nullable = false)
+    @JsonBackReference
     private Utente organizzatore;
 
-    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonBackReference
     private List<Prenotazione> prenotazionesPerEvento;
 
 }

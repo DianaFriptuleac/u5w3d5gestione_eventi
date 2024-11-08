@@ -1,5 +1,6 @@
 package dianafriptuleac.u5w3d5gestione_eventi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,10 +23,12 @@ public class Prenotazione {
 
     @ManyToOne
     @JoinColumn(name = "utente_id", nullable = false)
+    @JsonBackReference //evito i loop
     private Utente utente;
 
     @ManyToOne
     @JoinColumn(name = "evento_id", nullable = false)
+    @JsonBackReference
     private Evento evento;
 
 
